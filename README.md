@@ -1,69 +1,52 @@
-# 第7天学生项目：电商用户分析Web系统
+# 第8天学生项目：Flask数据看板强化
 
 ## 运行方法
 
 ```bash
 python -m pip install -r requirements.txt
+python validate_day08_environment.py
 python app.py
 ```
 
-浏览器访问 `http://127.0.0.1:5000`。
+浏览器访问 `http://127.0.0.1:5500`。
 
 - 用户名：`student`
 - 密码：`day07`
 
-## 上午停止线
+## 第8天学习目标
 
-上午只完成以下内容：
+本项目承接第7天的电商数据看板。请在原有页面、登录和问答功能基础上，完成新的路由、JSON接口、参数处理、错误响应和测试。
 
-1. 建立并重命名个人项目；
-2. 从VS Code终端启动Flask；
-3. 测试正确登录、错误登录、访问拦截和退出；
-4. 定位`app.py`、`services`、`templates`、`static`和`data`；
-5. 核对已有2张指标卡、1张图和“总用户数”问答；
-6. 搜索TODO，但暂不修改`TODO 2-1`至`TODO 4-1`。
+登录后重点测试：`/dashboard`、`/assistant`、`/health`、`/api/metrics`和`/api/categories?category=Fashion`。
 
-## 下午核心任务
+## 第8天核心TODO
 
-1. 检查并解释登录、退出和登录访问控制；
-2. 完成4张指标卡和2张真实图表；
-3. 完成偏好品类筛选；
-4. 完成至少4类离线规则问答；
-5. 在`screenshots`目录保存4张核心验收截图；
-6. 完成一项必选拓展；
-7. 修改本文件，填写个人信息、完成功能、拓展说明和未解决问题。
+- `TODO 8-1`：完成`/api/metrics`指标JSON接口；
+- `TODO 8-2`：完成`/api/categories`的查询参数筛选；
+- `TODO 8-3`：统一400错误JSON结构；
+- `TODO 8-4`：检查数据服务返回值可被`jsonify`序列化；
+- 为新增接口编写至少3条Flask测试。
 
-使用编辑器搜索`TODO`即可找到需要完成的位置。
+## 提交方式
 
-## 必选拓展（三选一）
+不要新建GitHub仓库。继续使用第7天的课程仓库，在其中新增`day08_flask_upgrade/`目录，或按教师指定的第8天目录提交。提交前运行：
 
-### A. 导出当前筛选结果
+```bash
+python validate_day08_environment.py
+python validate_day08_submission.py
+git status
+git add day08_flask_upgrade
+git diff --cached
+git commit -m "完成第8天Flask项目强化"
+git push
+```
 
-新增CSV下载功能，导出内容必须与当前`category`筛选一致。
-
-### B. 生命周期详情页
-
-新增`/segments`页面，展示各生命周期阶段的用户数、流失人数和流失率。
-
-### C. Flask自动化测试
-
-新增`tests/`目录，至少测试正确登录、未登录访问看板和`/api/ask`。
-
-完成后必须填写下面的拓展信息，并提供`screenshots/05_extension.png`、`test_result.txt`或`tests/`测试文件作为证据。
+不要提交`.venv/`、`__pycache__/`、`.env`、真实密钥或其他缓存文件。
 
 ## 学生信息
 
 - 姓名：黎一鸣
 - 学号：24012443
-- 专题方向：电商数据分析
-- 已完成功能：
-  1. 4张指标卡：总用户数（5,630人）、流失用户（948人）、总体流失率（16.8%）、平均订单数（2.96单）
-  2. 2张图表：不同偏好品类用户比较柱状图、不同生命周期用户平均订单趋势折线图
-  3. 偏好品类下拉筛选：支持按5个品类过滤表格数据
-  4. 5类智能问答：总用户数、流失率、偏好品类、生命周期风险、订单数据
-  5. 数据观察：新用户阶段流失率最高（53.5%）
-  6. 登录/退出/访问拦截控制
-- 选择的拓展任务：A. 导出当前筛选结果（CSV下载）
-- 拓展访问或运行方法：登录后在看板页面筛选品类，点击"导出CSV"按钮即可下载对应品类的CSV文件；也可直接访问 /download?category=品类名
-- 拓展证据文件：screenshots/05_extension.png
+- 已完成路由或接口：/api/metrics、/api/categories、/health、/api/ask（400 错误处理）
+- 测试文件：tests/test_app.py
 - 尚未解决的问题：无

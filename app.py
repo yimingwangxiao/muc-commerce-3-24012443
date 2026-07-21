@@ -1,19 +1,13 @@
 from functools import wraps
 from pathlib import Path
 
-from flask import (
-    Flask,
-    Response,
-    flash,
-    jsonify,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 
-from services.data_service import get_export_csv, load_dashboard_data
+from services.data_service import (
+    load_category_api_data,
+    load_dashboard_data,
+    load_metric_api_data,
+)
 from services.qa_service import answer_question
 
 
@@ -88,17 +82,28 @@ def ask():
     return jsonify({"ok": True, "answer": answer_question(BASE_DIR, question)})
 
 
-@app.route("/download")
+@app.route("/health")
+def health():
+    """用于确认服务是否存活，不需要登录。"""
+    return jsonify({"ok": True, "service": "day08-flask-upgrade"})
+
+
+@app.route("/api/metrics")
 @login_required
-def download():
+def metrics_api():
+    return jsonify({"ok": True, "metrics": load_metric_api_data(BASE_DIR)})
+
+
+@app.route("/api/categories")
+@login_required
+def categories_api():
     category = request.args.get("category", "全部")
-    csv_content = get_export_csv(BASE_DIR, category)
-    filename = f"品类分析_{category}.csv"
-    return Response(
-        csv_content,
-        mimetype="text/csv",
-        headers={"Content-Disposition": f"attachment; filename={filename}"},
-    )
+    return jsonify({"ok": True, "category": category, "rows": load_category_api_data(BASE_DIR, category)})
+
+
+@app.errorhandler(400)
+def bad_request(_error):
+    return jsonify({"ok": False, "error": "请求格式不正确。"}), 400
 
 
 @app.errorhandler(404)
@@ -107,4 +112,4 @@ def page_not_found(_error):
 
 
 if __name__ == "__main__":
-    app.run(debug=False, port=5000)
+    app.run(debug=False, port=5500)
