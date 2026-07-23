@@ -1,52 +1,23 @@
-# 第8天学生项目：Flask数据看板强化
+# 第9天学生项目：机器学习零基础数据准备
 
 ## 运行方法
 
 ```bash
 python -m pip install -r requirements.txt
-python validate_day08_environment.py
-python app.py
+python validate_day09_environment.py
+jupyter lab
 ```
 
-浏览器访问 `http://127.0.0.1:5500`。
-
-- 用户名：`student`
-- 密码：`day07`
-
-## 第8天学习目标
-
-本项目承接第7天的电商数据看板。请在原有页面、登录和问答功能基础上，完成新的路由、JSON接口、参数处理、错误响应和测试。
-
-登录后重点测试：`/dashboard`、`/assistant`、`/health`、`/api/metrics`和`/api/categories?category=Fashion`。
-
-## 第8天核心TODO
-
-- `TODO 8-1`：完成`/api/metrics`指标JSON接口；
-- `TODO 8-2`：完成`/api/categories`的查询参数筛选；
-- `TODO 8-3`：统一400错误JSON结构；
-- `TODO 8-4`：检查数据服务返回值可被`jsonify`序列化；
-- 为新增接口编写至少3条Flask测试。
-
-## 提交方式
-
-不要新建GitHub仓库。继续使用第7天的课程仓库，在其中新增`day08_flask_upgrade/`目录，或按教师指定的第8天目录提交。提交前运行：
-
-```bash
-python validate_day08_environment.py
-python validate_day08_submission.py
-git status
-git add day08_flask_upgrade
-git diff --cached
-git commit -m "完成第8天Flask项目强化"
-git push
-```
-
-不要提交`.venv/`、`__pycache__/`、`.env`、真实密钥或其他缓存文件。
+打开`notebooks/day09_ml_preparation_student.ipynb`。Notebook已经提供完整处理骨架，你只需完成少量关键填空、运行检查点并撰写解释。
 
 ## 学生信息
 
 - 姓名：黎一鸣
 - 学号：24012443
-- 已完成路由或接口：/api/metrics、/api/categories、/health、/api/ask（400 错误处理）
-- 测试文件：tests/test_app.py
-- 尚未解决的问题：无
+- 班级：3班
+
+## 用自己的话回答
+
+- 什么是特征，什么是标签：特征是模型用来做判断的输入信息（如使用时长、投诉次数等用户属性），标签是我们希望模型预测的目标答案（如用户是否流失）。特征相当于考试题目，标签相当于标准答案。
+- 为什么要保留测试集：测试集用来模拟模型从未见过的新数据。如果把所有数据都用于训练，模型可能只是死记硬背，无法检验它是否真正学到了可推广的规律，就像让学生考同一张试卷一样没有意义。
+- 为什么83%准确率仍可能没有用：如果100个用户中只有17人流失，模型只要永远预测"不流失"就能拿到83%准确率，但它一个流失用户都抓不住，在实际业务中毫无价值。
